@@ -57,7 +57,18 @@ class HorseRaces:
             inner keys are (str) races, inner values are (int) race times
             EXAMPLE: {'Special Week': {'Tenno Sho Fall': 16.5, 'Tenno Sho Spring': 16.3, 'Teio Sho': 17.0}}
         '''
-        pass
+        if not table or len(table) < 2:
+            return {}
+        header = table[0]
+        race_names = header[1:]
+        result = {}
+        for row in table[1:]:
+            horse_name = row[0]
+            result[horse_name] = {}
+            for i, time_str in enumerate(row[1:]):
+                if i < len(race_names):
+                    result[horse_name][race_names[i]] = float(time_str)
+        return result
 
 ###############################################################################
 ##### TASK 2
